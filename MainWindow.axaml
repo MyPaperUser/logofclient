@@ -5,5 +5,13 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Logof_Client.MainWindow"
         Title="Logof_Client">
-    Welcome to Avalonia!
+    <Border>
+        <Grid RowDefinitions="30,*">
+            <Menu Background="#50888888">
+                <MenuItem Header="Datei">
+                    <MenuItem Click="MnuExit_OnClick" x:Name="MnuExit" Header="Exit"></MenuItem>
+                </MenuItem>
+            </Menu>    
+        </Grid>
+    </Border>
 </Window>
