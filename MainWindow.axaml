@@ -4,14 +4,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Logof_Client.MainWindow"
-        Title="Logof_Client">
+        Title="Logof Client">
     <Border>
-        <Grid RowDefinitions="30,*">
+        <Grid RowDefinitions="30,*,*">
             <Menu Background="#50888888">
                 <MenuItem Header="Datei">
-                    <MenuItem Click="MnuExit_OnClick" x:Name="MnuExit" Header="Exit"></MenuItem>
+                    <MenuItem Click="MnuSettings_OnClick" x:Name="MnuSettings" Header="Einstellungen"></MenuItem>
+                    <Separator/>
+                    <MenuItem Click="MnuExit_OnClick" x:Name="MnuExit" Header="Beenden"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Hilfe">
+                    <MenuItem Header="Onlinehilfe" x:Name="MnuHelp" Click="MnuHelp_OnClick"></MenuItem>
+                    <MenuItem Header="Github" x:Name="MnuGithub" Click="MnuGithub_OnClick"></MenuItem>
+                    <MenuItem Header="Über" x:Name="MnuAbout" Click="MnuAbout_OnClick"></MenuItem>
                 </MenuItem>
             </Menu>    
+            <Grid Grid.Row="1">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBox x:Name="TbFilename" Watermark="Dateipfad" Width="400" VerticalContentAlignment="Center"></TextBox>
+                    <Button x:Name="BtnChooseFile" Margin="10,0,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <LucideIcon Kind="FolderOpen" Width="16" Height="16" Size="16"></LucideIcon>
+                            <Label Content="Öffnen" VerticalContentAlignment="Center" ></Label>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.ColumnDefinitions="*,*" Grid.Row="2">
+                <StackPanel Grid.Column="0" Width="250" Orientation="Vertical" HorizontalAlignment="Right" Margin="0,0,5,0">
+                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,0,0,10">
+                        <StackPanel Orientation="Horizontal">
+                            <LucideIcon Kind="SpellCheck" Width="36" Height="36"></LucideIcon>
+                            <Label Content="Prüfen" VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold"></Label>
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,0,0,10">
+                        <StackPanel Orientation="Horizontal">
+                            <LucideIcon Kind="Combine" Width="36" Height="36"></LucideIcon>
+                            <Label Content="Zusammenführen" VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold"></Label>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Width="250" Orientation="Vertical" HorizontalAlignment="Left" Margin="5,0,0,0">
+                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,0,0,10">
+                        <StackPanel Orientation="Horizontal">
+                            <LucideIcon Kind="ListX" Width="36" Height="36"></LucideIcon>
+                            <Label Content="Kürzen" VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold"></Label>
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,0,0,10">
+                        <StackPanel Orientation="Horizontal">
+                            <LucideIcon Kind="Tags" Width="36" Height="36"></LucideIcon>
+                            <Label Content="Etiketten generieren" VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold"></Label>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
         </Grid>
     </Border>
 </Window>

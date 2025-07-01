@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8uJDaMmx3uc=",
+  "dgSpecHash": "DR0eBvevl6g=",
   "success": true,
   "projectFilePath": "/home/fierke/Nextcloud/Documents/source/repos/logofclient/Logof Client/Logof Client.csproj",
   "expectedPackageFiles": [
@@ -24,6 +24,7 @@
     "/home/fierke/.nuget/packages/harfbuzzsharp.nativeassets.macos/8.3.1.1/harfbuzzsharp.nativeassets.macos.8.3.1.1.nupkg.sha512",
     "/home/fierke/.nuget/packages/harfbuzzsharp.nativeassets.webassembly/8.3.1.1/harfbuzzsharp.nativeassets.webassembly.8.3.1.1.nupkg.sha512",
     "/home/fierke/.nuget/packages/harfbuzzsharp.nativeassets.win32/8.3.1.1/harfbuzzsharp.nativeassets.win32.8.3.1.1.nupkg.sha512",
+    "/home/fierke/.nuget/packages/lucide.avalonia/0.1.35/lucide.avalonia.0.1.35.nupkg.sha512",
     "/home/fierke/.nuget/packages/microcom.runtime/0.11.0/microcom.runtime.0.11.0.nupkg.sha512",
     "/home/fierke/.nuget/packages/skiasharp/2.88.9/skiasharp.2.88.9.nupkg.sha512",
     "/home/fierke/.nuget/packages/skiasharp.nativeassets.linux/2.88.9/skiasharp.nativeassets.linux.2.88.9.nupkg.sha512",

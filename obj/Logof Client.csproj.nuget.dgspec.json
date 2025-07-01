@@ -64,6 +64,10 @@
             "Avalonia.Themes.Fluent": {
               "target": "Package",
               "version": "[11.3.2, )"
+            },
+            "Lucide.Avalonia": {
+              "target": "Package",
+              "version": "[0.1.35, )"
             }
           },
           "imports": [

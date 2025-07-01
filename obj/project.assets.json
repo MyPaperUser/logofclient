@@ -448,6 +448,18 @@
           }
         }
       },
+      "Lucide.Avalonia/0.1.35": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "11.2.2"
+        },
+        "compile": {
+          "lib/net8.0/Lucide.Avalonia.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Lucide.Avalonia.dll": {}
+        }
+      },
       "MicroCom.Runtime/0.11.0": {
         "type": "package",
         "compile": {
@@ -1170,6 +1182,20 @@
         "runtimes/win-x86/native/libHarfBuzzSharp.dll"
       ]
     },
+    "Lucide.Avalonia/0.1.35": {
+      "sha512": "gEhcZFWfAPOrC/SV+Kf4lZH50TWRadK/sgMcsEVD4/iXnFSIcqOU9UbFJDUzCMsqm9fHckR5pURXWR55Cfq2Bw==",
+      "type": "package",
+      "path": "lucide.avalonia/0.1.35",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net8.0/Lucide.Avalonia.dll",
+        "lucide-logo-nuget.png",
+        "lucide.avalonia.0.1.35.nupkg.sha512",
+        "lucide.avalonia.nuspec"
+      ]
+    },
     "MicroCom.Runtime/0.11.0": {
       "sha512": "MEnrZ3UIiH40hjzMDsxrTyi8dtqB5ziv3iBeeU4bXsL/7NLSal9F1lZKpK+tfBRnUoDSdtcW3KufE4yhATOMCA==",
       "type": "package",
@@ -1412,7 +1438,8 @@
       "Avalonia.Desktop >= 11.3.2",
       "Avalonia.Diagnostics >= 11.3.2",
       "Avalonia.Fonts.Inter >= 11.3.2",
-      "Avalonia.Themes.Fluent >= 11.3.2"
+      "Avalonia.Themes.Fluent >= 11.3.2",
+      "Lucide.Avalonia >= 0.1.35"
     ]
   },
   "packageFolders": {
@@ -1478,6 +1505,10 @@
           "Avalonia.Themes.Fluent": {
             "target": "Package",
             "version": "[11.3.2, )"
+          },
+          "Lucide.Avalonia": {
+            "target": "Package",
+            "version": "[0.1.35, )"
           }
         },
         "imports": [
