@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Logof Client")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a283e86553985b898cb5d5bc228a437a6415c233")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9846e97a2b8e4563cc55294a6a21dca47a0a130")]
 [assembly: System.Reflection.AssemblyProductAttribute("Logof Client")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Logof Client")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
