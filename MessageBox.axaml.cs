@@ -5,7 +5,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Logof_Client;
 
-public class MessageBox : Window
+public partial class MessageBox : Window
 {
     public MessageBox()
     {
