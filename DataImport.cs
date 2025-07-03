@@ -5,15 +5,15 @@ namespace Logof_Client;
 
 public class DataImport
 {
-    public static (bool, KasAddressList) ImportKasAddressList(string pathToCsv, char separator = ',')
+    public static (bool, KasAddressList) ImportKasAddressList(Uri pathToCsv, char separator = ',')
     {
-        if (!File.Exists(pathToCsv))
+        if (!File.Exists(pathToCsv.LocalPath))
         {
             Console.WriteLine($"File not found: {pathToCsv}");
             return (false, null);
         }
 
-        using var reader = new StreamReader(pathToCsv);
+        using var reader = new StreamReader(pathToCsv.LocalPath);
         var headerLine = reader.ReadLine();
         if (headerLine == null)
         {
