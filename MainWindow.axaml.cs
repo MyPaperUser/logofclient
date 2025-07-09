@@ -7,30 +7,52 @@ namespace Logof_Client;
 
 public partial class MainWindow : Window
 {
+    public static MainWindow _instance;
     public Uri filePath;
 
     public MainWindow()
     {
         InitializeComponent();
-        try
-        {
-            var temppath = "kaspersons.csv";
-            var result = DataImport.ImportKasAddressList(new Uri(temppath));
-            if (result.Item1)
-            {
-                var check_result = AddressCheck.Perform(result.Item2);
-                foreach (var item in check_result)
-                {
-                    Console.WriteLine();
-                    Console.Write(item.Item1 + " ");
-                    foreach (var error in item.Item2) Console.Write(error + ", ");
-                }
-            }
-        }
-        catch
-        {
-        }
+        _instance = this;
+        // try
+        // {
+        //     var temppath = "kaspersons.csv";
+        //     var result = DataImport.ImportKasAddressList(new Uri(temppath));
+        //     if (result.Item1)
+        //     {
+        //         var check_result = new AddressCheck().Perform(result.Item2);
+        //         foreach (var item in check_result.Result)
+        //         {
+        //             Console.WriteLine();
+        //             Console.Write(item.Item1 + " ");
+        //             foreach (var error in item.Item2) Console.Write(error + ", ");
+        //         }
+        //     }
+        // }
+        // catch
+        // {
+        // }
     }
+
+    private async void StartAddressCheck(Uri path)
+    {
+        var addresses = DataImport.ImportKasAddressList(path); // Ihr Code hier
+        var progressWindow = new ProgressWindow();
+
+        // Fenster anzeigen (nicht blockierend)
+        progressWindow.Show(_instance);
+
+        var processor = new AddressCheck(progressWindow);
+        var result = await processor.Perform(addresses.Item2);
+
+        // Nach Verarbeitung schließen
+        progressWindow.Close();
+
+        // Ergebnis anzeigen, z.B. als Dialog
+        new ResultWindow(result).Show();
+        //await MessageBox.Show(_instance, $"{result.Count} Einträge fehlerhaft.", "Fertig");
+    }
+
 
     private void MnuExit_OnClick(object? sender, RoutedEventArgs e)
     {
@@ -82,16 +104,17 @@ public partial class MainWindow : Window
     private void BtnCheck_OnClick(object? sender, RoutedEventArgs e)
     {
         if (filePath == null) MessageBox.Show(this, "Bitte zunächst eine Datei auswählen", "Datei fehlt");
-        var result = DataImport.ImportKasAddressList(filePath);
-        if (result.Item1)
-        {
-            var check_result = AddressCheck.Perform(result.Item2);
-            foreach (var item in check_result)
-            {
-                Console.WriteLine();
-                Console.Write(item.Item1 + " ");
-                foreach (var error in item.Item2) Console.Write(error + ", ");
-            }
-        }
+        StartAddressCheck(filePath);
+        // var result = DataImport.ImportKasAddressList(filePath);
+        // if (result.Item1)
+        // {
+        //     var check_result = new AddressCheck().Perform(result.Item2);
+        //     foreach (var item in check_result.Result)
+        //     {
+        //         Console.WriteLine();
+        //         Console.Write(item.Item1 + " ");
+        //         foreach (var error in item.Item2) Console.Write(error + ", ");
+        //     }
+        // }
     }
 }

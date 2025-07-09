@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 namespace Logof_Client;
 
 public class KasAddressList
@@ -9,36 +10,10 @@ public class KasAddressList
     {
         KasPersons = new List<KasPerson>();
     }
-
 }
 
 public class KasPerson
 {
-    public int refsid { get; set; }
-    public string anrede { get; set; }
-    public string titel { get; set; }
-    public string vorname { get; set; }
-    public string adel { get; set; }
-    public string name { get; set; }
-    public string namezus { get; set; }
-    public string anredzus { get; set; }
-    public string strasse { get; set; }
-    public string strasse2 { get; set; }
-    public int plz { get; set; }
-    public string ort { get; set; }
-    public string land { get; set; }
-    public string pplz { get; set; }
-    public string postfach { get; set; }
-    public string name1 { get; set; }
-    public string name2 { get; set; }
-    public string name3 { get; set; }
-    public string name4 { get; set; }
-    public string name5 { get; set; }
-    public string funktion { get; set; }
-    public string funktion2 { get; set; }
-    public string abteilung { get; set; }
-    public string funktionad { get; set; }
-
     public KasPerson()
     {
         refsid = 0;
@@ -66,30 +41,31 @@ public class KasPerson
         abteilung = "";
         funktionad = "";
     }
+
     public KasPerson(int refsid,
-                     string anrede,
-                     string titel,
-                     string vorname,
-                     string adel,
-                     string name,
-                     string namezus,
-                     string anredzus,
-                     string strasse,
-                     string strasse2,
-                     int plz,
-                     string ort,
-                     string land,
-                     string pplz,
-                     string postfach,
-                     string name1,
-                     string name2,
-                     string name3,
-                     string name4,
-                     string name5,
-                     string funktion,
-                     string funktion2,
-                     string abteilung,
-                     string funktionad)
+        string anrede,
+        string titel,
+        string vorname,
+        string adel,
+        string name,
+        string namezus,
+        string anredzus,
+        string strasse,
+        string strasse2,
+        int plz,
+        string ort,
+        string land,
+        string pplz,
+        string postfach,
+        string name1,
+        string name2,
+        string name3,
+        string name4,
+        string name5,
+        string funktion,
+        string funktion2,
+        string abteilung,
+        string funktionad)
     {
         this.refsid = refsid;
         this.anrede = anrede;
@@ -116,5 +92,43 @@ public class KasPerson
         this.abteilung = abteilung;
         this.funktionad = funktionad;
     }
+
+    public int refsid { get; set; }
+    public string anrede { get; set; }
+    public string titel { get; set; }
+    public string vorname { get; set; }
+    public string adel { get; set; }
+    public string name { get; set; }
+    public string namezus { get; set; }
+    public string anredzus { get; set; }
+    public string strasse { get; set; }
+    public string strasse2 { get; set; }
+    public int plz { get; set; }
+    public string ort { get; set; }
+    public string land { get; set; }
+    public string pplz { get; set; }
+    public string postfach { get; set; }
+    public string name1 { get; set; }
+    public string name2 { get; set; }
+    public string name3 { get; set; }
+    public string name4 { get; set; }
+    public string name5 { get; set; }
+    public string funktion { get; set; }
+    public string funktion2 { get; set; }
+    public string abteilung { get; set; }
+    public string funktionad { get; set; }
 }
 
+public class KasPersonError
+{
+    public KasPersonError((int, List<AddressCheck.ErrorTypes>) single_result)
+    {
+        refsid = single_result.Item1;
+        foreach (var err in single_result.Item2) errors += err + ", ";
+        errors = errors.Trim();
+        errors = errors.TrimEnd(',');
+    }
+
+    public int refsid { get; set; }
+    public string errors { get; set; }
+}

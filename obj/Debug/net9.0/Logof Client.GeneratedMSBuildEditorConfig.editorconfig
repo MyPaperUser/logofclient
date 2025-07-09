@@ -30,5 +30,8 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [/home/fierke/Nextcloud/Documents/source/repos/logofclient/Logof Client/MessageBox.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/home/fierke/Nextcloud/Documents/source/repos/logofclient/Logof Client/ProgressWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/home/fierke/Nextcloud/Documents/source/repos/logofclient/Logof Client/ResultWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
