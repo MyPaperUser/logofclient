@@ -46,12 +46,16 @@ public class AddressCheck
                 var address_component_count = 2; // cause anrede and name are first
 
                 // Prüfung
-                if (person.plz < 10000)
+                if ((person.plz < 10000 && string.IsNullOrWhiteSpace(person.land)) ||
+                    (person.plz < 10000 && person.land == "GER") ||
+                    (person.plz < 10000 && person.land == "DE"))
                 {
                     hasFaults = true;
                     errors.Add(ErrorTypes.PlzTooShort);
                 }
-                else if (person.plz > 99999)
+                else if ((person.plz > 99999 && string.IsNullOrWhiteSpace(person.land)) ||
+                         (person.plz > 99999 && person.land == "GER") ||
+                         (person.plz > 99999 && person.land == "DE"))
                 {
                     hasFaults = true;
                     errors.Add(ErrorTypes.PlzTooLong);
