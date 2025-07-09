@@ -8,10 +8,12 @@
     <Grid Grid.ColumnDefinitions="200,*">
         <Grid>
             <Label Content="Filter" Margin="10,10,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+            <Label Content="X Ergebnisse" Margin="10,40,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                   x:Name="LblResultCount" />
             <StackPanel x:Name="StpFilterOptions" Orientation="Vertical" HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch" Margin="10,40,10,50" />
-            <Button x:Name="BtnUpdateFilter" Content="Aktualisieren" HorizontalAlignment="Stretch"
-                    VerticalAlignment="Bottom" Margin="10,0,10,10" Click="BtnUpdateFilter_OnClick" />
+                        VerticalAlignment="Stretch" Margin="10,80,10,0" />
+            <!-- <Button x:Name="BtnUpdateFilter" Content="Aktualisieren" HorizontalAlignment="Stretch" -->
+            <!--         VerticalAlignment="Bottom" Margin="10,0,10,10" Click="BtnUpdateFilter_OnClick" /> -->
         </Grid>
         <DataGrid x:Name="DgResult" Grid.Column="1" AutoGenerateColumns="True" />
     </Grid>
