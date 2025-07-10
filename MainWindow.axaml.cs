@@ -103,7 +103,12 @@ public partial class MainWindow : Window
 
     private void BtnCheck_OnClick(object? sender, RoutedEventArgs e)
     {
-        if (filePath == null) MessageBox.Show(this, "Bitte zunächst eine Datei auswählen", "Datei fehlt");
+        if (filePath == null)
+        {
+            MessageBox.Show(null, "Bitte zunächst eine Datei auswählen", "Datei fehlt");
+            return;
+        }
+
         StartAddressCheck(filePath);
         // var result = DataImport.ImportKasAddressList(filePath);
         // if (result.Item1)
