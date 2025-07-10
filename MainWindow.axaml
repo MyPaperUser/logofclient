@@ -40,23 +40,34 @@
                             <Label Content="Prüfen" VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold" />
                         </StackPanel>
                     </Button>
-                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,0,0,10">
+                    <Button HorizontalAlignment="Stretch" IsEnabled="False" HorizontalContentAlignment="Center"
+                            Margin="0,0,0,10">
                         <StackPanel Orientation="Horizontal">
                             <LucideIcon Kind="Combine" Width="36" Height="36" />
                             <Label Content="Zusammenführen" VerticalContentAlignment="Center" FontSize="15"
                                    FontWeight="Bold" />
                         </StackPanel>
                     </Button>
+                    <Button HorizontalAlignment="Stretch" IsEnabled="False" HorizontalContentAlignment="Center"
+                            Margin="0,0,0,10">
+                        <StackPanel Orientation="Horizontal">
+                            <LucideIcon Kind="Hammer" Width="36" Height="36" />
+                            <Label Content="Reparieren" VerticalContentAlignment="Center" FontSize="15"
+                                   FontWeight="Bold" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Width="250" Orientation="Vertical" HorizontalAlignment="Left"
                             Margin="5,0,0,0">
-                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,0,0,10">
+                    <Button HorizontalAlignment="Stretch" IsEnabled="False" HorizontalContentAlignment="Center"
+                            Margin="0,0,0,10">
                         <StackPanel Orientation="Horizontal">
                             <LucideIcon Kind="ListX" Width="36" Height="36" />
                             <Label Content="Kürzen" VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold" />
                         </StackPanel>
                     </Button>
-                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,0,0,10">
+                    <Button HorizontalAlignment="Stretch" IsEnabled="False" HorizontalContentAlignment="Center"
+                            Margin="0,0,0,10">
                         <StackPanel Orientation="Horizontal">
                             <LucideIcon Kind="Tags" Width="36" Height="36" />
                             <Label Content="Etiketten generieren" VerticalContentAlignment="Center" FontSize="15"
