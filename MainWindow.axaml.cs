@@ -1,7 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
+using Avalonia.Threading;
 
 namespace Logof_Client;
 
@@ -121,5 +125,93 @@ public partial class MainWindow : Window
         //         foreach (var error in item.Item2) Console.Write(error + ", ");
         //     }
         // }
+    }
+
+    private void BtnCombine_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (filePath == null)
+        {
+            MessageBox.Show(null, "Bitte zunächst eine Datei auswählen", "Datei fehlt");
+            return;
+        }
+
+        StartCombine(filePath);
+    }
+
+    private async void StartCombine(Uri path)
+    {
+        var addresses = DataImport.ImportKasAddressList(path);
+        var progressWindow = new ProgressWindow();
+        var address_list = new List<KasAddressList> { addresses.Item2 };
+
+        var topLevel = GetTopLevel(this);
+        var file = await topLevel!.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "Weitere KAS-CSV-Dateien auswählen",
+            AllowMultiple = true,
+            FileTypeFilter = new[]
+            {
+                new FilePickerFileType(".csv-Dateien")
+                {
+                    Patterns = new[] { "*.csv" }
+                    //Patterns = new[] { "*" }
+                }
+            }
+        });
+
+        if (file == null) return;
+
+        //filePath = file[0].Path;
+        foreach (var f in file) address_list.Add(DataImport.ImportKasAddressList(f.Path).Item2);
+
+
+        progressWindow.Show(_instance);
+
+        var processor = new CombineAddresses(progressWindow);
+        var result = await processor.Perform(address_list);
+
+
+        progressWindow.Close();
+        File.WriteAllText(Dispatcher.UIThread.Invoke(() => OpenSettingsSaveAsDialog()).Result,
+            new CsvBuilder(
+                "refsid,anrede,titel,vorname,adel,name,namezus,anredzus,strasse,strasse2,plz,ort,land,pplz,postfach,name1,name2,name3,name4,name5,funktion,funktion2,abteilung,funktionad,lastupdate",
+                result).BuildKas());
+
+
+        //new ResultWindow(result).Show();
+    }
+
+    private async Task<string> OpenSettingsSaveAsDialog()
+    {
+        var settingsFileName = "KAS-Adress-Liste";
+
+        try
+        {
+            var filePicker = new SaveFileDialog
+            {
+                Title = "Datei speichern...",
+                InitialFileName = $"{settingsFileName}.csv",
+                DefaultExtension = ".csv",
+                Filters = new List<FileDialogFilter>
+                {
+                    new() { Name = "CSV-Datei", Extensions = { "csv" } }
+                }
+            };
+
+            var settingsSavePath = await filePicker.ShowAsync(this);
+            if (settingsSavePath == null)
+            {
+            }
+
+            return settingsSavePath;
+            //SettingsManager.Save(settingsSavePath);
+            //Logger.Log("Settings saved at " + settingsSavePath);
+        }
+        catch (Exception ex)
+        {
+            //Logger.Log("Saving file not successfull: " + ex.Message, Logger.LogType.Error);
+            await MessageBox.Show(this, ex.Message, "Fehler beim Speichern der Datei");
+            return null;
+        }
     }
 }
