@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
-using Avalonia.Threading;
 
 namespace Logof_Client;
 
@@ -172,13 +171,10 @@ public partial class MainWindow : Window
 
 
         progressWindow.Close();
-        File.WriteAllText(Dispatcher.UIThread.Invoke(() => OpenSettingsSaveAsDialog()).Result,
+        File.WriteAllText(OpenSettingsSaveAsDialog().Result,
             new CsvBuilder(
                 "refsid,anrede,titel,vorname,adel,name,namezus,anredzus,strasse,strasse2,plz,ort,land,pplz,postfach,name1,name2,name3,name4,name5,funktion,funktion2,abteilung,funktionad,lastupdate",
                 result).BuildKas());
-
-
-        //new ResultWindow(result).Show();
     }
 
     private async Task<string> OpenSettingsSaveAsDialog()

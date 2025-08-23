@@ -27,7 +27,6 @@ public class CombineAddresses
 
     private async Task<KasAddressList> Merge(KasAddressList first, KasAddressList second, int num, int total)
     {
-        KasAddressList result = new();
         foreach (var sec in second.KasPersons)
         {
             var is_new = true;
@@ -68,7 +67,7 @@ public class CombineAddresses
                 }
             }
 
-            if (is_new) result.KasPersons.Add(sec);
+            if (is_new) first.KasPersons.Add(sec);
             var subperc = second.KasPersons.IndexOf(sec) / second.KasPersons.Count;
             var percent = (num + (double)subperc) / total * 100;
             await Dispatcher.UIThread.InvokeAsync(() =>
@@ -82,6 +81,6 @@ public class CombineAddresses
             });
         }
 
-        return result;
+        return first;
     }
 }

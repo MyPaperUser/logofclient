@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Logof_Client;
@@ -121,14 +122,35 @@ public class KasPerson
 
 public class KasPersonError
 {
-    public KasPersonError((int, List<AddressCheck.ErrorTypes>) single_result)
+    public KasPersonError((int, List<AddressCheck.ErrorTypes>, List<AddressCheck.WarningTypes>) single_result)
     {
         refsid = single_result.Item1;
-        foreach (var err in single_result.Item2) errors += err + ", ";
-        errors = errors.Trim();
-        errors = errors.TrimEnd(',');
+        try
+        {
+            foreach (var err in single_result.Item2) errors += err + ", ";
+            errors = errors.Trim();
+            errors = errors.TrimEnd(',');
+        }
+        catch
+        {
+        }
+
+        try
+        {
+            if (single_result.Item3 != null)
+            {
+                foreach (var err in single_result.Item3) warnings += err + ", ";
+                warnings = warnings.Trim();
+                warnings = warnings.TrimEnd(',');
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
     public int refsid { get; set; }
-    public string errors { get; set; }
+    public string errors { get; set; } = "";
+    public string warnings { get; set; } = "";
 }

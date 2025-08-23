@@ -11,16 +11,20 @@ public class AddressCheck
     {
         PlzTooShort,
         PlzTooLong,
+
+        // empty,
+        FullAddressTooLong,
+        DoubledRefsid,
+        MayBeSameAddress
+    }
+
+    public enum WarningTypes
+    {
         NoCity,
         NoStreet,
         NoLastName,
         NoFirstName,
-
-        // empty,
-        FullAddressTooLong,
-        NoStreetNumber,
-        DoubledRefsid,
-        MayBeSameAddress
+        NoStreetNumber
     }
 
     private readonly ProgressWindow _progress;
@@ -30,9 +34,9 @@ public class AddressCheck
         _progress = progressWindow;
     }
 
-    public async Task<List<(int, List<ErrorTypes>)>> Perform(KasAddressList addresses)
+    public async Task<List<(int, List<ErrorTypes>, List<WarningTypes>)>> Perform(KasAddressList addresses)
     {
-        var failed_refsids = new List<(int, List<ErrorTypes>)>();
+        var failed_refsids = new List<(int, List<ErrorTypes>, List<WarningTypes>)>();
         var total = addresses.KasPersons.Count;
         var current = 0;
 
@@ -41,6 +45,7 @@ public class AddressCheck
             foreach (var person in addresses.KasPersons)
             {
                 var errors = new List<ErrorTypes>();
+                var warnings = new List<WarningTypes>();
                 var hasFaults = false;
 
                 var address_component_count = 2; // cause anrede and name are first
@@ -64,7 +69,7 @@ public class AddressCheck
                 if (string.IsNullOrWhiteSpace(person.ort))
                 {
                     hasFaults = true;
-                    errors.Add(ErrorTypes.NoCity);
+                    warnings.Add(WarningTypes.NoCity);
                 }
                 else
                 {
@@ -82,26 +87,26 @@ public class AddressCheck
                 if (intcount == 0)
                 {
                     hasFaults = true;
-                    errors.Add(ErrorTypes.NoStreetNumber);
+                    warnings.Add(WarningTypes.NoStreetNumber);
                 }
 
 
                 if (string.IsNullOrWhiteSpace(person.name))
                 {
                     hasFaults = true;
-                    errors.Add(ErrorTypes.NoLastName);
+                    warnings.Add(WarningTypes.NoLastName);
                 }
 
                 if (string.IsNullOrWhiteSpace(person.vorname))
                 {
                     hasFaults = true;
-                    errors.Add(ErrorTypes.NoFirstName);
+                    warnings.Add(WarningTypes.NoFirstName);
                 }
 
                 if (string.IsNullOrWhiteSpace(person.strasse))
                 {
                     hasFaults = true;
-                    errors.Add(ErrorTypes.NoStreet);
+                    warnings.Add(WarningTypes.NoStreet);
                 }
                 else
                 {
@@ -160,7 +165,7 @@ public class AddressCheck
                 if (hasFaults)
                     lock (failed_refsids)
                     {
-                        failed_refsids.Add((person.refsid, errors));
+                        failed_refsids.Add((person.refsid, errors, warnings));
                     }
 
                 // Fortschritt aktualisieren
