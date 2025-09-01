@@ -30,7 +30,7 @@ public class KasPerson
         plz = 0;
         ort = "";
         land = "";
-        pplz = "";
+        pplz = 0;
         postfach = "";
         name1 = "";
         name2 = "";
@@ -56,7 +56,7 @@ public class KasPerson
         int plz,
         string ort,
         string land,
-        string pplz,
+        int pplz,
         string postfach,
         string name1,
         string name2,
@@ -107,7 +107,7 @@ public class KasPerson
     public int plz { get; set; }
     public string ort { get; set; }
     public string land { get; set; }
-    public string pplz { get; set; }
+    public int pplz { get; set; }
     public string postfach { get; set; }
     public string name1 { get; set; }
     public string name2 { get; set; }
