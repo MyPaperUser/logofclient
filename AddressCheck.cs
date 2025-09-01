@@ -17,7 +17,8 @@ public class AddressCheck
         // empty,
         FullAddressTooLong,
         DoubledRefsid,
-        MayBeSameAddress
+        MayBeSameAddress,
+        NoPLZorPPLZ
     }
 
     public enum WarningTypes
@@ -26,7 +27,9 @@ public class AddressCheck
         NoStreet,
         NoLastName,
         NoFirstName,
-        NoStreetNumber
+        NoStreetNumber,
+        NoPLZ,
+        NoPPLZ
     }
 
     private readonly ProgressWindow _progress;
@@ -53,35 +56,58 @@ public class AddressCheck
                 var address_component_count = 2; // cause anrede and name are first
 
                 // PLZ-Prüfung
-                if ((person.plz < 10000 && string.IsNullOrWhiteSpace(person.land)) ||
-                    (person.plz < 10000 && person.land == "GER") ||
-                    (person.plz < 10000 && person.land == "DE"))
+                if (person.plz == 0 || person.plz == null)
                 {
                     hasFaults = true;
-                    errors.Add(ErrorTypes.PlzTooShort);
+                    warnings.Add(WarningTypes.NoPLZ);
                 }
-                else if ((person.plz > 99999 && string.IsNullOrWhiteSpace(person.land)) ||
-                         (person.plz > 99999 && person.land == "GER") ||
-                         (person.plz > 99999 && person.land == "DE"))
+                else
                 {
-                    hasFaults = true;
-                    errors.Add(ErrorTypes.PlzTooLong);
+                    if ((person.plz < 10000 && string.IsNullOrWhiteSpace(person.land)) ||
+                        (person.plz < 10000 && person.land == "GER") ||
+                        (person.plz < 10000 && person.land == "DE"))
+                    {
+                        hasFaults = true;
+                        errors.Add(ErrorTypes.PlzTooShort);
+                    }
+                    else if ((person.plz > 99999 && string.IsNullOrWhiteSpace(person.land)) ||
+                             (person.plz > 99999 && person.land == "GER") ||
+                             (person.plz > 99999 && person.land == "DE"))
+                    {
+                        hasFaults = true;
+                        errors.Add(ErrorTypes.PlzTooLong);
+                    }
                 }
 
+
                 // PPLZ-Prüfung
-                if ((person.pplz < 10000 && string.IsNullOrWhiteSpace(person.land)) ||
-                    (person.pplz < 10000 && person.land == "GER") ||
-                    (person.pplz < 10000 && person.land == "DE"))
+                if (person.pplz == 0 || person.pplz == null)
                 {
                     hasFaults = true;
-                    errors.Add(ErrorTypes.PPlzTooShort);
+                    warnings.Add(WarningTypes.NoPPLZ);
                 }
-                else if ((person.pplz > 99999 && string.IsNullOrWhiteSpace(person.land)) ||
-                         (person.pplz > 99999 && person.land == "GER") ||
-                         (person.pplz > 99999 && person.land == "DE"))
+                else
+                {
+                    if ((person.pplz < 10000 && string.IsNullOrWhiteSpace(person.land)) ||
+                        (person.pplz < 10000 && person.land == "GER") ||
+                        (person.pplz < 10000 && person.land == "DE"))
+                    {
+                        hasFaults = true;
+                        errors.Add(ErrorTypes.PPlzTooShort);
+                    }
+                    else if ((person.pplz > 99999 && string.IsNullOrWhiteSpace(person.land)) ||
+                             (person.pplz > 99999 && person.land == "GER") ||
+                             (person.pplz > 99999 && person.land == "DE"))
+                    {
+                        hasFaults = true;
+                        errors.Add(ErrorTypes.PPlzTooLong);
+                    }
+                }
+
+                if (warnings.Contains(WarningTypes.NoPLZ) && warnings.Contains(WarningTypes.NoPPLZ))
                 {
                     hasFaults = true;
-                    errors.Add(ErrorTypes.PPlzTooLong);
+                    errors.Add(ErrorTypes.NoPLZorPPLZ);
                 }
 
                 // Ort-Prüfung
