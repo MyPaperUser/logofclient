@@ -14,7 +14,10 @@
                         VerticalAlignment="Stretch" Margin="10,80,10,0" />
             <!-- <Button x:Name="BtnUpdateFilter" Content="Aktualisieren" HorizontalAlignment="Stretch" -->
             <!--         VerticalAlignment="Bottom" Margin="10,0,10,10" Click="BtnUpdateFilter_OnClick" /> -->
+            <Button Content="Ausgewählte Anzeigen" x:Name="BtnShwoSelected" Click="BtnShwoSelected_OnClick"
+                    Margin="10,10,10,0" />
         </Grid>
         <DataGrid x:Name="DgResult" Grid.Column="1" AutoGenerateColumns="True" />
+
     </Grid>
 </Window>

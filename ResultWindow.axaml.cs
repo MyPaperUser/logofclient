@@ -1,21 +1,27 @@
 using System;
 using System.Collections.Generic;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
 
 namespace Logof_Client;
 
 public partial class ResultWindow : Window
 {
     public List<CheckBox> errortypecheckboxes = new();
+    public KasAddressList ur_addresses = new();
     public List<(int, List<AddressCheck.ErrorTypes>, List<AddressCheck.WarningTypes>)> ur_result;
     public List<CheckBox> warningtypecheckboxes = new();
 
-    public ResultWindow(List<(int, List<AddressCheck.ErrorTypes>, List<AddressCheck.WarningTypes>)> result)
+    public ResultWindow(List<(int, List<AddressCheck.ErrorTypes>, List<AddressCheck.WarningTypes>)> result,
+        KasAddressList ur_addresses)
     {
         InitializeComponent();
         ur_result = result;
+        this.ur_addresses = ur_addresses;
         Load(result);
+        //ViewSingle(200552426);
     }
 
     private void GenerateView(List<(int, List<AddressCheck.ErrorTypes>, List<AddressCheck.WarningTypes>)> result)
@@ -24,6 +30,36 @@ public partial class ResultWindow : Window
         foreach (var single_result in result) errors.Add(new KasPersonError(single_result));
         LblResultCount.Content = $"{errors.Count}/{ur_result.Count} Ergebnisse";
         DgResult.ItemsSource = errors;
+    }
+
+    private void ViewSingle(int refsid)
+    {
+        foreach (var result in ur_addresses.KasPersons)
+            if (result.refsid == refsid)
+            {
+                var wind = new Window();
+                var stp = new StackPanel();
+                stp.Orientation = Orientation.Horizontal;
+                stp.Margin = new Thickness(10);
+                var tb = new TextBlock();
+                var tb2 = new TextBlock();
+                tb.Text =
+                    "refsid:\nanrede:\ntitel:\nvorname:\nadel:\nname:\nnamezus:\nanredzus:\nstrasse:\nstrasse2:\nplz:\nort:\nland:\npplz:\npostfach:\nname1:\nname2:\nname3:\nname4:\nname5:\nfunktion:\nfunktion2:\nabteilung:\nfunktionad:";
+                tb2.Text = result.refsid + "\n" + result.anrede + "\n" + result.titel + "\n" + result.vorname + "\n" +
+                           result.adel + "\n" + result.name + "\n" + result.namezus + "\n" + result.anredzus + "\n" +
+                           result.strasse + "\n" + result.strasse2 + "\n" + result.plz + "\n" + result.ort + "\n" +
+                           result.land + "\n" + result.pplz + "\n" + result.postfach + "\n" + result.name1 + "\n" +
+                           result.name2 + "\n" + result.name3 + "\n" + result.name4 + "\n" + result.name5 + "\n" +
+                           result.funktion + "\n" + result.funktion2 + "\n" + result.abteilung + "\n" +
+                           result.funktionad;
+                stp.Children.Add(tb);
+                stp.Children.Add(tb2);
+                wind.Content = stp;
+                wind.ShowInTaskbar = false;
+                wind.SizeToContent = SizeToContent.WidthAndHeight;
+                wind.Show();
+                return;
+            }
     }
 
     private void Load(List<(int, List<AddressCheck.ErrorTypes>, List<AddressCheck.WarningTypes>)> result)
@@ -102,5 +138,19 @@ public partial class ResultWindow : Window
 
         LblResultCount.Content = $"{errors.Count}/{ur_result.Count} Ergebnisse";
         DgResult.ItemsSource = errors;
+    }
+
+    private void BtnShwoSelected_OnClick(object? sender, RoutedEventArgs e)
+    {
+        foreach (var selected in DgResult.SelectedItems)
+            try
+            {
+                var _asKas = (KasPersonError)selected;
+                ViewSingle(_asKas.refsid);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
     }
 }
