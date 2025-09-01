@@ -11,6 +11,8 @@ public class AddressCheck
     {
         PlzTooShort,
         PlzTooLong,
+        PPlzTooShort,
+        PPlzTooLong,
 
         // empty,
         FullAddressTooLong,
@@ -50,7 +52,7 @@ public class AddressCheck
 
                 var address_component_count = 2; // cause anrede and name are first
 
-                // Prüfung
+                // PLZ-Prüfung
                 if ((person.plz < 10000 && string.IsNullOrWhiteSpace(person.land)) ||
                     (person.plz < 10000 && person.land == "GER") ||
                     (person.plz < 10000 && person.land == "DE"))
@@ -66,6 +68,23 @@ public class AddressCheck
                     errors.Add(ErrorTypes.PlzTooLong);
                 }
 
+                // PPLZ-Prüfung
+                if ((person.pplz < 10000 && string.IsNullOrWhiteSpace(person.land)) ||
+                    (person.pplz < 10000 && person.land == "GER") ||
+                    (person.pplz < 10000 && person.land == "DE"))
+                {
+                    hasFaults = true;
+                    errors.Add(ErrorTypes.PPlzTooShort);
+                }
+                else if ((person.pplz > 99999 && string.IsNullOrWhiteSpace(person.land)) ||
+                         (person.pplz > 99999 && person.land == "GER") ||
+                         (person.pplz > 99999 && person.land == "DE"))
+                {
+                    hasFaults = true;
+                    errors.Add(ErrorTypes.PPlzTooLong);
+                }
+
+                // Ort-Prüfung
                 if (string.IsNullOrWhiteSpace(person.ort))
                 {
                     hasFaults = true;
@@ -76,6 +95,7 @@ public class AddressCheck
                     address_component_count++;
                 }
 
+                // Street-Number
                 var street = person.strasse.ToCharArray();
                 var intcount = 0;
                 foreach (var c in street)
@@ -90,19 +110,21 @@ public class AddressCheck
                     warnings.Add(WarningTypes.NoStreetNumber);
                 }
 
-
+                // Last-Name
                 if (string.IsNullOrWhiteSpace(person.name))
                 {
                     hasFaults = true;
                     warnings.Add(WarningTypes.NoLastName);
                 }
 
+                // First-Name
                 if (string.IsNullOrWhiteSpace(person.vorname))
                 {
                     hasFaults = true;
                     warnings.Add(WarningTypes.NoFirstName);
                 }
 
+                // Street-Check
                 if (string.IsNullOrWhiteSpace(person.strasse))
                 {
                     hasFaults = true;
@@ -113,6 +135,7 @@ public class AddressCheck
                     address_component_count++;
                 }
 
+                // Address-Component-Count
                 if (!string.IsNullOrWhiteSpace(person.strasse2)) address_component_count++;
                 if (!string.IsNullOrWhiteSpace(person.land)) address_component_count++;
                 if (!string.IsNullOrWhiteSpace(person.name1)) address_component_count++;
@@ -125,7 +148,7 @@ public class AddressCheck
                 if (!string.IsNullOrWhiteSpace(person.funktionad)) address_component_count++;
                 if (!string.IsNullOrWhiteSpace(person.abteilung)) address_component_count++;
 
-
+                // Double-Refsid or DoubleAddresses
                 foreach (var person2 in addresses.KasPersons)
                 {
                     if (addresses.KasPersons.IndexOf(person) == addresses.KasPersons.IndexOf(person2)) continue;
