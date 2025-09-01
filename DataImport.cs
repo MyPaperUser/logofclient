@@ -52,7 +52,7 @@ public class DataImport
                     ParseInt(parts[10]),
                     parts[11],
                     parts[12],
-                    parts[13],
+                    ParseInt(parts[13]),
                     parts[14],
                     parts[15],
                     parts[16],
