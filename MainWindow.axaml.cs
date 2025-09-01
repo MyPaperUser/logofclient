@@ -52,7 +52,7 @@ public partial class MainWindow : Window
         progressWindow.Close();
 
         // Ergebnis anzeigen, z.B. als Dialog
-        new ResultWindow(result).Show();
+        new ResultWindow(result, addresses.Item2).Show();
         //await MessageBox.Show(_instance, $"{result.Count} Einträge fehlerhaft.", "Fertig");
     }
 
